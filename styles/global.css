@@ -1,0 +1,83 @@
+button {
+    position: relative;
+    padding: 10px;
+    overflow: hidden;
+    margin: 3px;
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    
+    background-color: #efefef;
+    color: #000000;
+    
+    transition: background-color .3s;
+  }
+  
+  button:hover:enabled, button:focus:enabled {
+    background-color: #bdbdbd;
+  }
+  button:disabled {
+    color: gray;
+  }
+  button > * {
+    position: relative;
+  }
+  
+  button span {
+    display: block;
+    padding: 12px 24px;
+  }
+  
+  button:before {
+    content: "";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    display: block;
+    width: 0;
+    padding-top: 0;
+      
+    border-radius: 100%;
+    
+    background-color: rgba(236, 240, 241, .3);
+    
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+  button:active:before {
+    width: 120%;
+    padding-top: 120%;
+    
+    transition: width .2s ease-out, padding-top .2s ease-out;
+  }
+
+  input:not([type=checkbox]):not([type=radio]) {
+      height: 20px;
+      width: 100%;
+      max-width: 500px;
+  }
+
+  select {
+      height: 30px;
+      width: 100%;
+      max-width: 500px;
+  }
+
+  textarea {
+    resize: none;
+    overflow: auto;
+    border-color: rgb(204, 204, 204);
+    width: 100%;
+    max-width: 500px;
+  } 
+  
+  textarea:read-only {
+    background: #eaeaea;
+  }

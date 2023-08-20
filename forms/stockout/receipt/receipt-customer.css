@@ -1,0 +1,56 @@
+@page { size: auto;  margin: 5mm; }
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    width: 210mm;
+    min-height: 140mm;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    margin-bottom:0;
+}
+
+.wrapper{
+    flex: 1 0 auto;
+}
+
+.customer-section {
+    width: 210mm;
+    min-height: 140mm;
+    position: relative;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+h2 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    margin: 3px;
+}
+
+.header {
+    text-align: center;
+    margin: 4px;
+    font-size: 12px;
+}
+
+.footer {
+    margin-left: 3px;
+    margin-top: 20px;
+    bottom: 50px;
+    width: 100%;
+    position: absolute;
+    page-break-inside: avoid;
+    flex-shrink: 0;
+}
+
+@media print {
+    #printPageButton {
+      display: none;
+    }
+  }

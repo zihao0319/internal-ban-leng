@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sales Order</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="report.css">
+</head>
+
+<body>
+    <div class='wrapper'>
+        <!-- <h1>萬能冷氣工程有限公司
+        <span style='font-size: 12px;'> (775244-K)</span>
+    </h1>
+    <h2>BAN LENG AIR CONDITIONING ENGINEERING SDN BHD</h2> -->
+        <div id="printPageButton" style="text-align: center;"><button style="font-size: 15px;"
+                onClick="window.print();">Print</button></div>
+        <div id="banlengheader">
+            <h1>
+                <img src='../../img/letterhead.png' style='width:60%' />
+                <span style='font-size: 10px;vertical-align: text-top;'> (775244-K)</span>
+            </h1>
+            <div class='header'>No: 7 & 9, Lebuh Nangka 2, Taman Desa Damai, 14000 Bukit Mertajam, Pulau Pinang</div>
+            <div class='header'>Tel: (+60)4-5397966&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fax:
+                +(60)4-5399577&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:
+                info@ban-leng.com</div>
+        </div>
+        <div id="kaltheader" style="display:none">
+            <h1><img src='../../img/kaltlogo.png' style='width:25%' /></h1>
+            <h1 style="margin-top:0">
+                KALT AIR CONDITIONING ENTERPRISE
+                <span style='font-size: 10px;vertical-align: text-top;'> (PG0461118-A)</span>
+            </h1>
+            <div class='header'>No: 7 & 9, Lebuh Nangka 2, Taman Desa Damai, 14000 Bukit Mertajam, Pulau Pinang</div>
+            <div class='header'>Tel: (+60)12-4920969&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:
+                info@kalt.com.my</div>
+        </div>
+        <table style='margin-top: 40px; width: 100%'>
+            <tr>
+                <td style='width: 50%; padding: 0px;'>
+                    <div class='customer'>
+                        <div id='CustomerName'>[Customer Name]</div>
+                        <div style="white-space: pre-line" id='Address'>[Address]</div>
+                        <div id='Phone'>[Tel No]</div>
+                    </div>
+                </td>
+                <td style='width: 50%;  padding: 0px; vertical-align: top;'>
+                    <div class='salesOrderInfo'>
+                        <div class='header'>SALES ORDER&nbsp;&nbsp;<span id='SalesOrderNo'>[SalesOrderNo]</span></div>
+                        <table>
+                            <tr>
+                                <td><label>Date</label></td>
+                                <td>:</td>
+                                <td id='SalesOrderDate' class='value'>[Date]</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table class='salesOrderItems' id='salesOrderTable'>
+            <tr>
+                <th style='width: 5%'>No</th>
+                <th style='width: 50%'>Job Description</th>
+                <th style='width: 15%'>Unit</th>
+                <th style='width: 15%'>Unit Price</th>
+                <th style='width: 15%'>Total</th>
+            </tr>
+            <tr>
+                <th style='text-align: right' colspan="4">Total Amount:</th>
+                <th id='TotalPrice'>RM <span style='float:right'>330.00</span></th>
+            </tr>
+        </table>
+    </div>
+    <div class='footer' style="width: 85%">
+        <p>
+            <b><u>Scope of Work:</u></b>
+        <ol id='ScopeOfWork'>
+            <li>No warranty to the compressor</li>
+            <li>No warranty to the spare part</li>
+        </ol>
+        </p>
+        <p>
+            <b><u>Notes:</u></b>
+        <div id='Note' style="margin-left:15px">
+        </div>
+        </p>
+        <p>
+        <div style='font-style: italic;'>This is a computer generated and it does not require an authorized
+            signature.</div>
+        </p>
+    </div>
+
+    <script src="report.js"></script>
+</body>
+
+</html>

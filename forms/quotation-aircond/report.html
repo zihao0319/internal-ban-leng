@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Quotation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="report.css">
+</head>
+
+<body>
+    <div class='wrapper'>
+        <!-- <h1>萬能冷氣工程有限公司
+        <span style='font-size: 12px;'> (775244-K)</span>
+    </h1>
+    <h2>BAN LENG AIR CONDITIONING ENGINEERING SDN BHD</h2> -->
+        <div id="printPageButton" style="text-align: center;"><button style="font-size: 15px;"
+                onClick="window.print();">Print Quotation</button></div>
+        <div id="banlengheader">
+            <h1>
+                <img src='../../img/letterhead.png' style='width:60%' />
+                <span style='font-size: 10px;vertical-align: text-top;'> (775244-K)</span>
+            </h1>
+            <div class='header'>No: 7 & 9, Lebuh Nangka 2, Taman Desa Damai, 14000 Bukit Mertajam, Pulau Pinang</div>
+            <div class='header'>Tel: (+60)4-5397966&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fax:
+                +(60)4-5399577&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:
+                info@ban-leng.com</div>
+        </div>
+        <div id="kaltheader" style="display:none">
+            <h1><img src='../../img/kaltlogo.png' style='width:25%' /></h1>
+            <h1 style="margin-top:0">
+                KALT AIR CONDITIONING ENTERPRISE
+                <span style='font-size: 10px;vertical-align: text-top;'> (PG0461118-A)</span>
+            </h1>
+            <div class='header'>No: 7 & 9, Lebuh Nangka 2, Taman Desa Damai, 14000 Bukit Mertajam, Pulau Pinang</div>
+            <div class='header'>Tel: (+60)12-4920969&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:
+                info@kalt.com.my</div>
+        </div>
+
+        <table style='margin-top: 40px; width: 100%'>
+            <tr>
+                <td style='width: 50%; padding: 0px;'>
+                    <div class='customer'>
+                        <div id='CompanyName'>[Company Name]</div>
+                        <div id='RegNo'>[Reg No]</div>
+                        <div style="white-space: pre-line" id='Address'>[Address]</div>
+                        <div>
+                            <span style='width: 50px; display: inline-block'>Tel No:</span><span id='Phone'>[Tel
+                                No]</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style='width: 50px; display: inline-block'>Fax No:</span><span id='Fax'>[Fax
+                                No]</span>
+                        </div>
+                        <div><span style='width: 50px; display: inline-block'>Attn:</span><span
+                                id='AttnPerson'>[Name]</span>&nbsp;&nbsp;&nbsp;<span id='AttnPhone'>[Contact No]</span>
+                        </div>
+                        <div><span style='width: 50px; display: inline-block'>Email:</span><span
+                                id='Email'>[Email]</span>
+                        </div>
+                    </div>
+                </td>
+                <td style='width: 50%;  padding: 0px; vertical-align: top;'>
+                    <div class='quotationInfo'>
+                        <div class='header'>QUOTATION&nbsp;&nbsp;<span id='QuotationId'>[QuotationID]</span></div>
+                        <table>
+                            <tr>
+                                <td><label>Date</label></td>
+                                <td>:</td>
+                                <td id='QuotationDate' class='value'>[Date]</td>
+                            </tr>
+                            <tr>
+                                <td><label>Job Dept</label></td>
+                                <td>:</td>
+                                <td id='JobDepartment' class='value'>[JobDept]</td>
+                            </tr>
+                            <tr>
+                                <td><label>Aircond No:</label></td>
+                                <td>:</td>
+                                <td id='AircondNo' class='value'>[ACNo]</td>
+                            </tr>
+                            <tr>
+                                <td><label>Requisition No</label></td>
+                                <td>:</td>
+                                <td id='RequisitionNo' class='value'>[ReqNo]</td>
+                            </tr>
+                            <tr>
+                                <td><label>Delivery No:</label></td>
+                                <td>:</td>
+                                <td id='DeliveryNo' class='value'>[DeliveryNo]</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+        <div style='margin-top: 20px; margin-left: 3px;'><b><u>RE: QUOTATION AS FOLLOWING:</u></b></div>
+        <table class='quotationItems' id='quotationTable'>
+            <tr>
+                <th style='width: 5%'>No</th>
+                <th style='width: 50%'>Job Description</th>
+                <th style='width: 15%'>Unit</th>
+                <th style='width: 15%'>Unit Price</th>
+                <th style='width: 15%'>Total</th>
+            </tr>
+            <tr>
+                <th style='text-align: right' colspan="4">Total Amount:</th>
+                <th id='TotalPrice'>RM <span style='float:right'>330.00</span></th>
+            </tr>
+        </table>
+
+        <table class='quotationItems' id='quotationTableFixedTotal' style='display:none;'>
+            <tr>
+                <th style='width: 5%'>No</th>
+                <th style='width: 95%' colspan="2">Job Description</th>
+            </tr>
+            <tr>
+                <th style='width: 5%'></th>
+                <th style='text-align: right'>Total Amount:</th>
+                <th style='width: 15%' id='TotalPriceFixed'>RM <span style='float:right'>330.00</span></th>
+            </tr>
+        </table>
+    </div>
+    <div class='footer' style="width: 85%">
+        <p>
+            <b><u>Scope of Work:</u></b>
+        <ol id='ScopeOfWork'>
+            <li>No warranty to the compressor</li>
+            <li>No warranty to the spare part</li>
+        </ol>
+        </p>
+        <p id='PeriodOfWarrantySection'>
+            <b><u>Period of Warranty:</u></b>
+        <div id='PeriodOfWarranty' style="white-space: pre-wrap;"></div>
+        </p>
+        <p>
+        <div><b><span style='width: 70px; display: inline-block'>Payment</span>: <span id='PaymentMode'>Cash</span></b>
+        </div>
+        <div><span style='width: 70px; display: inline-block'>Validity</span>: This quotation is valid for 15
+            days from the date hereof.</div>
+        </p>
+        <p>
+        <div><b>We trust above quotation is acceptable to you and look forward to your favourable reply. We
+                certainly look forward to a long term business relationship with you and your organization.</b>
+        </div>
+        </p>
+        <p>
+        <div style='font-style: italic;'>This is a computer generated and it does not require an authorized
+            signature.</div>
+        </p>
+    </div>
+
+    <script src="report.js"></script>
+</body>
+
+</html>

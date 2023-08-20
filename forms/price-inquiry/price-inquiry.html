@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <title>Price Inquiry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <script src="https://internal.ban-leng.com/scripts/ag-grid-community.min.noStyle.js"></script>
+   <!-- Include the core CSS, this is needed by the grid -->
+   <link rel="stylesheet"
+     href="https://internal.ban-leng.com/styles/ag-grid.css"/>
+   <!-- Include the theme CSS, only need to import the theme you are going to use -->
+   <link rel="stylesheet"
+     href="https://internal.ban-leng.com/styles/ag-theme-balham.css"/>
+    <link rel="stylesheet" href="https://internal.ban-leng.com/forms/price-inquiry/price-inquiry.css">
+    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/global.css" type="text/css" />
+</head>
+
+<body class="ag-theme-balham">
+    <h1>Price Inquiry</h1>
+    <a href="https://internal.ban-leng.com">Back to home</a>
+    <div style="margin-top: 20px;">
+        <input type="checkbox" id="obsoleteCB" name="obsoleteCB" onclick="onObsoleteCBChanged()">
+        <label>Show obsolete  </label>
+        <input type="checkbox" id="hotitemCB" name="hotitemCB" onclick="onHotItemCBChanged()">
+        <label>Show Seller Picks only</label>
+    </div>
+    <div id="myGrid" class="ag-theme-balham" style="height: 400px; width:100%; margin-bottom: 50px; margin-top: 20px;"></div>
+    <div class="button-bar">
+        <button onclick="generateText('supply')">Supply only</button>
+        <button onclick="generateText('install')">Supply & Install</button>
+        <button onclick="generateTextLabour('nopipe')">Supply & Install W/O Piping</button>
+        <button onclick="generateTextLabour('conceal')">Concealing</button>
+        <button onclick="copyText()">Copy Text</button>
+        <button onclick="clearText()">Clear Text</button>
+        <button onclick="requestData()">Reset</button>
+    </div>
+    <textarea id="quotationText"></textarea>
+
+    <script src="https://internal.ban-leng.com/forms/price-inquiry/price-inquiry.js"></script>
+</body>
+
+</html>

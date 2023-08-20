@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quotation - Repair & Maintenance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <!-- Include the JS for AG Grid -->
+   <script src="https://internal.ban-leng.com/scripts/ag-grid-community.min.noStyle.js"></script>
+   <!-- Include the core CSS, this is needed by the grid -->
+   <link rel="stylesheet"
+     href="https://internal.ban-leng.com/styles/ag-grid.css"/>
+   <!-- Include the theme CSS, only need to import the theme you are going to use -->
+   <link rel="stylesheet"
+     href="https://internal.ban-leng.com/styles/ag-theme-balham.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="https://internal.ban-leng.com/forms/quotation-maint/quotation-maint.css">
+    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/tags.css" type="text/css" />
+
+</head>
+
+<body class="ag-theme-balham">
+    <h1>Quotation - Repair & Maintenance</h1>
+    <a href="https://internal.ban-leng.com/">Back to home</a>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 30%">
+                <h2>Customer</h2>
+                <div id="CustomerSection">
+                    <div class="tab">
+                        <button class="tablinks" id="CustomerFormBtn"
+                            onclick="openTab(event, 'CustomerForm','CustomerSection')">New
+                            Customer</button>
+                        <button class="tablinks" id="CustomerSearchBtn"
+                            onclick="openTab(event, 'CustomerSearch','CustomerSection')">Search
+                            Existing</button>
+                    </div>
+                    <div id="CustomerSearch" class="tabcontent">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <input style="width: 300px" type="text" id="CustomerFilter" placeholder="Filter..."
+                                        oninput="onCustomerFilterTextBoxChanged()" />
+                                    <span class="button-bar" style="width: 100%;">
+                                        <button style='float: right; width: 120px'
+                                            onclick="selectExistingCustomer()">Select
+                                            Customer</button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="CustomerGrid" class="ag-theme-balham" style="height: 300px; width:100%; padding-top: 5px;"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="CustomerForm" class="tabcontent">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td><label>Name </label></td>
+                                <td><input id="NewCustomerName" type="text" name="CustomerName" /></td>
+                                <td style='text-align: right'>
+                                    <div class="button-bar">
+                                        <button style='width: 120px' onclick="selectNewCustomer()">Select
+                                            Customer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Address </label></td>
+                                <td><textarea id="NewCustomerAddress" name="CustomerAddress"></textarea></td>
+                                <td style='text-align: right'>
+                                    <div class="button-bar">
+                                        <button style='width: 120px' onclick="saveCustomer()">Save to System</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Phone </label></td>
+                                <td><input id="NewPhone" type="text" name="Phone" /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Fax </label></td>
+                                <td><input id="NewFax" type="text" name="Fax" /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Registration No </label></td>
+                                <td><input id="NewRegNo" type="text" name="RegNo" /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Attn Person </label></td>
+                                <td><input id="NewAttnPerson" type="text" name="AttnPerson" /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Attn Phone </label></td>
+                                <td><input id="NewAttnPhone" type="text" name="AttnPhone" /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Email </label></td>
+                                <td><input id="NewEmail" type="text" name="Email" /></td>
+                            </tr>
+                        </table>
+                        <div id='NewCustomerMsg'></div>
+                    </div>
+                </div>
+            </td>
+            <td style="width: 30%">
+                <h2>Selected Customer</h2>
+                <div id='SelectedCustomer'>
+                    <table style='width: 100%'>
+                        <tr>
+                            <td><label>Name </label></td>
+                            <td><input id="CustomerName" type="text" name="CustomerName" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Address </label></td>
+                            <td><textarea id="CustomerAddress" name="CustomerAddress" style="height: 60px;"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label>Phone </label></td>
+                            <td><input id="Phone" type="text" name="Phone" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Fax </label></td>
+                            <td><input id="Fax" type="text" name="Fax" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Registration No </label></td>
+                            <td><input id="RegNo" type="text" name="RegNo" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Attn Person </label></td>
+                            <td><input id="AttnPerson" type="text" name="AttnPerson" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Attn Phone </label></td>
+                            <td><input id="AttnPhone" type="text" name="AttnPhone" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Email </label></td>
+                            <td><input id="Email" type="text" name="Email" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <h2>Job Information</h2>
+                <div id="JobPanel">
+                    <table style='width: 100%'>
+                        <tr>
+                            <td><label>Horse Power </label></td>
+                            <td><input id="HorsePower" type="text" name="HorsePower"
+                                    oninput="updateSpan('HorsePowerSpan','HorsePower')" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Brand</label></td>
+                            <td><input id="Brand" type="text" name="Brand" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Aircond Type</label></td>
+                            <td><input id="ACType" type="text" name="ACType"
+                                    oninput="updateSpan('ACTypeSpan','ACType')" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Feature</label></td>
+                            <td><input id="Feature" type="text" name="Feature"
+                                    oninput="updateSpan('FeatureSpan','Feature')" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Gas</label></td>
+                            <td><input id="Gas" type="text" name="Gas" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Indoor Model</label></td>
+                            <td><input id="ModelIndoor" type="text" name="ModelIndoor" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Outdoor Model</label></td>
+                            <td><input id="ModelOutdoor" type="text" name="ModelOutdoor" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 40%">
+                <h2>Quotation Information</h2>
+                <div id="QuotationPanel">
+                    <table>
+                        <tr>
+                            <td><label>Quotation ID </label></td>
+                            <td colspan=5><input id="QuotationID" type="text" name="QuotationID" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Date </label></td>
+                            <td colspan=5><input id="Date" name="password" type="date" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Job Department </label></td>
+                            <td colspan=5><input id="JobDepartment" name="JobDepartment" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Aircond Unit </label></td>
+                            <td colspan=5><input id="ACUnit" name="ACUnit" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Requisition No </label></td>
+                            <td colspan=5><input id="RequisitionNo" name="RequisitionNo" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Delivery No </label></td>
+                            <td colspan=5><input id="DeliveryNo" name="DeliveryNo" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Service No </label></td>
+                            <td><input id="ServiceNo" name="ServiceNo" type="text" /></td>
+                            <td><label>Date </label></td>
+                            <td><input id="ServiceNoDate" name="ServiceNoDate" type="date" /></td>
+                            <td><label>Price </label></td>
+                            <td><input id="ServiceNoPrice" name="ServiceNoPrice" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Invoice No </label></td>
+                            <td><input id="InvoiceNo" name="InvoiceNo" type="text" /></td>
+                            <td><label>Date </label></td>
+                            <td><input id="InvoiceNoDate" name="InvoiceNoDate" type="date" /></td>
+                            <td><label>Price </label></td>
+                            <td><input id="InvoiceNoPrice" name="InvoiceNoPrice" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>PO No </label></td>
+                            <td><input id="PONo" name="PONo" type="text" /></td>
+                            <td><label>Date </label></td>
+                            <td><input id="PONoDate" name="PONoDate" type="date" /></td>
+                            <td><label>Price </label></td>
+                            <td><input id="PONoPrice" name="PONoPrice" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Remark </label></td>
+                            <td colspan="5"><textarea id="Remark" name="Remark" style="height: 80px;"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label>Scope of Work (separator: "|") </label></td>
+                            <td colspan="5"><textarea id="ScopeOfWork" name="ScopeOfWork" style="height: 80px;" >No warranty to the compressor|No warranty to the spare part|Crane job is not included|Company reserve the right, at its discretion, to cancel, modify, add or remove portions of the quotation at anytime as if the risk level is high.</textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label>Payment Mode </label></td>
+                            <td colspan=5><input id="PaymentMode" name="PaymentMode" type="text" value="CASH"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Job Status </label></td>
+                            <td colspan=5>
+                                <input type="radio" name="JobStatus" value="Pending" checked> Pending<br>
+                                <input type="radio" name="JobStatus" value="Completed"> Completed<br>
+                                <input type="radio" name="JobStatus" value="Cancelled"> Cancelled<br>  
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 28%">
+                <h2>Action</h2>
+                <input type="text" id="ActionFilter" placeholder="Filter..." oninput="onActionFilterTextBoxChanged()" />
+                Type: <select id="ActionTypeSelector" style="width:120px;"
+                    onchange="externalActionFilterChanged()"></select>
+            </td>
+            <td style="width: 3%"></td>
+            <td style="width: 70%">
+                <h2>Quotation</h2>
+                <div>
+                    <label>Start with: </label><input style='width: 50%' type='text' id='quotationIntro'
+                        value='To supply labour and tools for'>
+                </div>
+                <div class="tags-input" id='preTextDiv' style="width: 100%">
+                    <button style="padding: 5px;" onclick="movePreText(false)"> &lt; </button>
+                    <button style="padding: 5px;" onclick="movePreText(true)"> &gt; </button>
+                    <input type="text" id="mainInputPreText" class="main-input">
+                    <input type="hidden" id="hiddenInputPreText" class="tags-input">
+                </div>
+                <div>
+                    <span id='HorsePowerSpan' class='quotationInfo'></span>&nbsp;
+                    <span id='FeatureSpan' class='quotationInfo'></span>&nbsp;
+                    <span id='ACTypeSpan' class='quotationInfo'></span>&nbsp;
+                    &nbsp;&nbsp;<input type="checkbox" id='isOverrideACInfo' onchange="OverrideACInfo()"> Override
+                    &nbsp;&nbsp;<input style='width: 30%' type='text' id='OverrideACInfo' value='' readonly>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="ActionGrid" class="ag-theme-balham" style="height: 300px;"></div>
+            </td>
+            <td style="vertical-align: middle; text-align: center">
+                <button style="display: block; margin-top: 20px; padding: 5px;" onclick="addQuotationItem()"> &gt; </button>
+                <button style="display: block; margin-top: 20px; padding: 5px;" onclick="removeQuotationItem()"> &lt;</button>
+            </td>
+            <td>
+                <div id="QuotationGrid" class="ag-theme-balham" style="height: 300px;"></div>
+                <div style='margin-top:5px'>
+                    <input type="checkbox" id='hasRefund' onchange="toggleRefund()">
+                    <label>Refund:&nbsp;&nbsp;</label>
+                    <input style='width: 30%' type='text' id='refundDescription' value='Refund of inspection fee'
+                        readonly>
+                    <label>Unit:&nbsp;&nbsp;</label>
+                    <input style='width: 5%' type='text' id='refundQty' value='0' readonly>
+                    <label>UOM:&nbsp;&nbsp;</label>
+                    <input style='width: 5%' type='text' id='refundUOM' value='set' readonly>
+                    <label>Price:&nbsp;&nbsp;</label>
+                    <input style='width: 5%' type='text' id='refundPrice' value='0.00' readonly>
+                    <label>Total:&nbsp;&nbsp;</label>
+                    <input style='width: 5%' type='text' id='refundAmount' value='0.00' readonly>
+                </div>
+                <div class="tags-input" id='postTextDiv' style="width: 100%">
+                    <button style="padding: 5px;" onclick="movePostText(false)"> &lt; </button>
+                    <button style="padding: 5px;" onclick="movePostText(true)"> &gt; </button>
+                    <input type="text" id="mainInputPostText" class="main-input">
+                    <input type="hidden" id="hiddenInputPostText" class="tags-input">
+                </div>
+                <div>
+                    <label>End with: </label><input style='width: 50%' type='text' id='quotationEnding'
+                        value='and test run in a good condition.'>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="button-bar">
+                    <button onclick="validateSaveRecord()">Save Record</button>
+                    <button onclick="createReport('banleng')">View Document</button>
+                    <button onclick="createReport('kalt')">View Document (KALT)</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <h2>History</h2>
+                <input type="checkbox" id="HistoryFilterByCustomer" onChange="externalHistoryFilterChanged()" />Filtered
+                by customer
+                <input type="text" id="HistoryFilter" placeholder="Filter..." oninput="onHistoryTextBoxChanged()" />
+            </td>
+            <td>
+                <h2>History Detail</h2>
+                <input type="checkbox" id="HistoryFilterByAction" onChange="externalHistoryFilterChanged()" />Filtered
+                by quotation item
+                <input type="text" id="HistoryDetailFilter" placeholder="Filter..."
+                    oninput="onHistoryItemFilterTextBoxChanged()" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 40%">
+
+                <div id="HistoryGrid" class="ag-theme-balham" style="height: 200px;"></div>
+            </td>
+            <td style="width: 60%">
+
+                <div id="HistoryDetailGrid" class="ag-theme-balham" style="height: 200px;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="button-bar">
+                    <button onclick="updateQuotation()">Edit Quotation</button>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+
+
+    <script src="https://internal.ban-leng.com/forms/quotation-maint/quotation-maint.js"></script>
+</body>
+
+</html>

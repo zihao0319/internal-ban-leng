@@ -1,0 +1,55 @@
+/**  custom bootstrap - start */
+.btn {
+    border-radius: 25px;
+    border-color: #ddd;
+}
+
+.btn:hover {
+    border: solid 1px #bbb;
+    background-color: #fff;
+}
+
+.btn:active {
+    background-color: #f9f9f9;
+    border: solid 1px #bbb;
+    outline: none;
+}
+
+.btn:disabled {
+    background-color: #f9f9f9;
+    border: solid 1px #ddd;
+    color: #bbb;
+}
+
+.btn:focus:active, .btn:focus, .btn:active {
+    outline: none;
+}
+  
+.ic-arrow-line-left {
+    background: url('https://nhn.github.io/tui.calendar/latest/examples/images/ic-arrow-line-left.png') no-repeat;
+}
+
+.ic-arrow-line-right {
+    background: url('https://nhn.github.io/tui.calendar/latest/examples/images/ic-arrow-line-right.png') no-repeat;
+}
+
+.calendar-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#renderRange {
+    padding-left: 12px;
+    font-size: 19px;
+    vertical-align: middle;
+  }
+
+.ag-cell .ag-input-field-input {
+    height: 100% !important;
+}
+
+.modified-rows {
+    background-color: sandybrown !important;
+  }

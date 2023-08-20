@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Receipt</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="receipt-customer.css">
+</head>
+
+<body>
+    <div class='wrapper'>
+        <div class="customer-section">
+            <div id="printPageButton" style="text-align: center;"><button style="font-size: 15px;"
+                    onClick="window.print();">Print</button></div>
+            <div id="banlengheader">
+                <h1>
+                    <img src='../../../img/letterhead.png' style='width:60%' />
+                    <span style='font-size: 10px;vertical-align: text-top;'> (775244-K)</span>
+                </h1>
+                <div class='header'>No: 7 & 9, Lebuh Nangka 2, Taman Desa Damai, 14000 Bukit Mertajam, Pulau Pinang
+                </div>
+                <div class='header'>Tel: (+60)4-5397966&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fax:
+                    +(60)4-5399577&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:
+                    info@ban-leng.com</div>
+            </div>
+            <div id="kaltheader" style="display:none">
+                <h1><img src='../../../img/kaltlogo.png' style='width:25%' /></h1>
+                <h1 style="margin-top:0">
+                    KALT AIR CONDITIONING ENTERPRISE
+                    <span style='font-size: 10px;vertical-align: text-top;'> (PG0461118-A)</span>
+                </h1>
+                <div class='header'>No: 7 & 9, Lebuh Nangka 2, Taman Desa Damai, 14000 Bukit Mertajam, Pulau Pinang
+                </div>
+                <div class='header'>Tel: (+60)12-4920969&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:
+                    info@kalt.com.my</div>
+            </div>
+            <h2 style='margin-top: 40px;'>OFFICIAL RECEIPT</h2>
+            <table style='width: 100%; font-size: 14px;' cellpadding=10>
+                <tr>
+                    <td style='width: 20%;'>
+                        <label>Received From</label>
+                    </td>
+                    <td style='width: 45%;'>
+                        <div id="CustomerName">[CustomerName]</div>
+                    </td>
+                    <td style='width: 15%;'>
+                        <label>No</label>
+                    </td>
+                    <td style='width: 20%;'>
+                        <div style="font-weight: bold;" id="ReceiptNo">[ReceiptNo]</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='width: 20%;'>
+                        <label>Amount</label>
+                    </td>
+                    <td style='width: 45%;'>
+                        <div id="AmountText" style="font-weight: bold;">One thousand fifty Ringgit Only</div>
+                    </td>
+                    <td style='width: 15%;'>
+                        <label>Amount</label>
+                    </td>
+                    <td style='width: 20%;'>
+                        <div style="font-weight: bold;">
+                            <span>RM&nbsp;</span>
+                            <span id="Amount">1050.00</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='width: 20%;'>
+                        <label>Being payment of</label>
+                    </td>
+                    <td style='width: 45%;'>
+                        <span id="PaymentOf">Sales Order #</span>&nbsp;
+                        <span id="PaymentOfNo">[SalesOrderNo]</span>
+                    </td>
+                    <td style='width: 15%;'>
+                        <label>Date</label>
+                    </td>
+                    <td style='width: 20%;'>
+                        <div id="ReceiptDate">[Date]</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2 style='width: 65%;'>
+                    </td>
+                    <td style='width: 15%;'>
+                        <label>Payment Mode</label>
+                    </td>
+                    <td style='width: 20%;'>
+                        <div id="PaymentMode">CASH</div>
+                    </td>
+                </tr>
+            </table>
+            <div class="footer">
+                <p>
+                    <h1 style="width: 95%;text-align: right;">Customer Copy</h1>
+                    </p>
+                <p>
+                <div style='font-style: italic;margin-left:15px;'>This is a computer generated and it does not require
+                    an
+                    authorized signature.</div>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

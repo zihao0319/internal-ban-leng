@@ -1,0 +1,101 @@
+@page { size: auto;  margin: 5mm; }
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    width: 210mm;
+    min-height: 290mm;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper{
+    flex: 1 0 auto;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+h2 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: normal;
+    margin: 3px;
+}
+
+.header {
+    text-align: center;
+    margin: 4px;
+    font-size: 12px;
+}
+
+.customer {
+    padding: 5px;
+    border: solid 1px;
+    width: 80%;
+}
+
+.customer div {
+    margin: 2px;
+}
+
+.quotationInfo {
+    padding: 5px;
+}
+
+.quotationInfo .header{
+    border: solid 1px;
+    padding: 2px;
+}
+
+.quotationInfo label{
+    display: inline-block;
+    width: 100px;
+}
+
+.quotationInfo td{
+    width: 1%;
+}
+
+.quotationInfo .value {
+    border-bottom: solid 1px;
+    width: 100%;
+    display: inline-block;
+}
+
+.quotationItems {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.quotationItems td {
+    padding: 7px;
+    border-left: solid 1px;
+    border-right: solid 1px;
+    word-wrap: break-word;
+}
+
+.quotationItems th {
+    border: solid 1px;
+    padding: 7px;
+}
+
+.footer {
+    margin-left: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    bottom: 50px;
+    width: 100%;
+    /*position: absolute;*/
+    page-break-inside: avoid;
+    flex-shrink: 0;
+}
+
+@media print {
+    #printPageButton {
+      display: none;
+    }
+  }

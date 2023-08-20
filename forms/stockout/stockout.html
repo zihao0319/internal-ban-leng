@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stock Out</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <!-- Include the JS for AG Grid -->
+   <script src="https://internal.ban-leng.com/scripts/ag-grid-community.min.noStyle.js"></script>
+   <!-- Include the core CSS, this is needed by the grid -->
+   <link rel="stylesheet"
+     href="https://internal.ban-leng.com/styles/ag-grid.css"/>
+   <!-- Include the theme CSS, only need to import the theme you are going to use -->
+   <link rel="stylesheet"
+     href="https://internal.ban-leng.com/styles/ag-theme-balham.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../scripts/numbertowordconvert.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="https://internal.ban-leng.com/forms/stockout/stockout.css">
+    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/tags.css" type="text/css" />
+</head>
+
+<body class="ag-theme-balham">
+    <h1>Stock Out</h1>
+    <a href="https://internal.ban-leng.com/">Back to home</a>
+
+    <table style="width: 100%">
+        <tr>
+            <td colspan="2">
+                <h2>Items</h2>
+                <div style="margin-top: 20px;">
+                    <span id="menu-navi">
+                        <button type="button" class="btn btn-default btn-sm move-today"
+                            onclick="moveToday()">Today</button>
+                        <button type="button" class="btn btn-default btn-sm move-day" onclick="movePrev()">
+                            <i class="calendar-icon ic-arrow-line-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm move-day" onclick="moveNext()">
+                            <i class="calendar-icon ic-arrow-line-right"></i>
+                        </button>
+                    </span>
+                    <span id="renderRange" class="render-range"></span>
+                    <span id="menu-navi">
+                        <button type="button" class="btn btn-default btn-sm move-today"
+                            onclick="showAllPendingOrders()">Show All Pending Orders</button>
+                    </span>
+                </div>
+                <div style="margin-top: 20px;"><span id="monthTotal"></span></div>
+                <input type="text" id="ItemFilter" placeholder="Filter..." oninput="onItemFilterTextBoxChanged()" />
+
+                <div id="orderGrid" class="ag-theme-balham" style="height: 400px; width:100%;"></div>
+                <div class="button-bar">
+                    <button onclick="addOrderRow()">New</button>
+                    <button onclick="deleteOrderRow()">Delete</button>
+                    <button id="submitOrdersButton" onclick="submitOrders()" disabled>
+                        <span id="warningOrdersIcon"
+                            style="padding: 0; color: orange; display: none; font-size: 20px">&#9888;</span>
+                        Save
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 35%">
+                            <div>
+                                <input id="pickingListDate" name="pickingListDate" type="date" style="width: 300px" />
+                                <button onclick="generatePickingList()">Generate Picking List</button>
+                            </div>
+                            <div>
+                                <textarea id="pickingList" name="pickingList" style="height: 200px;"></textarea>
+                            </div>
+                        </td>
+                        <td style="width: 25%">
+                            <h2>Available Extra Charges</h2>
+                            <div id="extraChargeGrid" class="ag-theme-balham" style="height: 170px; width:100%; margin-top: 20px;"></div>
+                        </td>
+                        <td>
+                            <button onclick="addOrderExtraChargeRow()">&gt;</button><br />
+                            <button onclick="deleteOrderExtraChargeRow()">&lt;</button>
+                        </td>
+                        <td style="width: 40%">
+                            <h2>Selected Extra Charges</h2>
+                            <div id="orderExtraChargeGrid" class="ag-theme-balham" style="height: 170px; width:100%; margin-top: 20px;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td style="text-align: right;">
+                            <div class="button-bar">
+                                <button id="submitOrderExtraChargeButton" onclick="submitOrderExtraCharge()">
+                                    Save
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top">
+                <h2>Sales Orders/Invoices</h2>
+                <div style="margin-top: 20px;">
+                    <span id="menu-navi-invoice">
+                        <button type="button" class="btn btn-default btn-sm move-today"
+                            onclick="moveTodayInvoice()">Today</button>
+                        <button type="button" class="btn btn-default btn-sm move-day" onclick="movePrevInvoice()">
+                            <i class="calendar-icon ic-arrow-line-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm move-day" onclick="moveNextInvoice()">
+                            <i class="calendar-icon ic-arrow-line-right"></i>
+                        </button>
+                    </span>
+                    <span id="renderRangeInvoice" class="render-range"></span>
+                </div>
+                <div style="margin-top: 20px;"><input type="text" id="InvoiceFilter" placeholder="Filter..."
+                        oninput="onInvoiceFilterTextBoxChanged()" /></div>
+                <div id="invoiceGrid" class="ag-theme-balham" style="height: 400px; width:100%;"></div>
+                <div class="button-bar">
+                    <button onclick="addInvoiceRow()">New Invoice</button>
+                    <button onclick="addInvoiceSORow()">New Sales Order</button>
+                    <button onclick="deleteInvoiceRow()">Delete</button>
+                    <button onclick="copyInvoiceSORow()">Copy As Sales Order</button>
+                    <button onclick="copyInvoiceRow()">Copy As Invoice</button>
+                    <button onclick="copyToService()">Copy To Service</button>
+                </div>
+                <div class="button-bar">
+                    <button id="submitInvoicesButton" onclick="submitInvoices()" disabled>
+                        <span id="warningInvoicesIcon"
+                            style="padding: 0; color: orange; display: none; font-size: 20px">&#9888;</span>
+                        Save
+                    </button>
+                    <button onclick="createReport('banleng')">View Document</button>
+                    <button onclick="createReport('kalt')">View Document (KALT)</button>
+                </div>
+            </td>
+            <td style="width: 50%">
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="2">
+                            <h2>Details</h2>
+                            <div id="detailGrid" class="ag-theme-balham" style="height: 150px; width:100%; margin-top: 20px;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top">
+                            <h2>Payments</h2>
+                            <div id="paymentGrid" class="ag-theme-balham" style="height: 150px; width:100%; margin-top: 20px;"></div>
+                        </td>
+                        <td style="vertical-align: top">
+                            <h2>Extra Charges</h2>
+                            <div id="detailExtraChargeGrid" class="ag-theme-balham" style="height: 150px; width:100%; margin-top: 20px;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan=2>
+                            <div class="button-bar">
+                                <button onclick="addPaymentRow()">New</button>
+                                <button onclick="deletePaymentRow(null)">Delete</button>
+                                <button onclick="printReceipt('banleng')">Create Receipt</button>
+                                <button onclick="printReceipt('kalt')">Create Receipt (KALT)</button>
+                                <input type="checkbox" id="receiptCustomerOnly" name="receiptCustomerOnly">
+                                <label>Customer Copy Only</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea id="Note" name="Note"
+                                style="height: 80px;"></textarea>
+                            <div class="button-bar">
+                                <button onclick="setNote('banleng')">Banleng</button>
+                                <button onclick="setNote('kalt')">Kalt</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+    <script src="https://internal.ban-leng.com/forms/stockout/grid-control/datepicker.js"></script>
+    <script src="https://internal.ban-leng.com/forms/stockout/grid-control/model-selectbox.js"></script>
+    <script src="https://internal.ban-leng.com/forms/stockout/grid-control/jobtype-selectbox.js"></script>
+    <script src="https://internal.ban-leng.com/forms/stockout/stockout.js">
+    </script>
+
+</body>
+
+</html>
