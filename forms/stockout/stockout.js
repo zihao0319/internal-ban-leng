@@ -495,7 +495,7 @@ function requestData(showAllPending = false) {
     var request_param = "&month=" + encodeURIComponent(month + 1)
         + "&year=" + encodeURIComponent(year)
         + "&showpending=" + encodeURIComponent(showAllPending ? 1 : 0)
-    var url = "https://internal.ban-leng.com/forms/stockout/stockout.php";
+    var url = "/forms/stockout/stockout.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -505,7 +505,7 @@ function requestData(showAllPending = false) {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function (e) {
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
     xmlhttp.send(request_param);
 }
@@ -523,7 +523,8 @@ function receiveData(response) {
         updateMonthTotalElement(responseJSON.Totals, responseJSON.Pendings);
     }
     catch (e) {
-        location.href = 'https://internal.ban-leng.com';
+        debugger;
+        location.href = '/';
     }
 
 }
@@ -552,7 +553,7 @@ function requestDataInvoice() {
 
     var request_param = "&month=" + encodeURIComponent(month_inv + 1)
         + "&year=" + encodeURIComponent(year_inv)
-    var url = "https://internal.ban-leng.com/forms/stockout/stockout-invoice.php";
+    var url = "/forms/stockout/stockout-invoice.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -562,7 +563,7 @@ function requestDataInvoice() {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function (e) {
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
     xmlhttp.send(request_param);
 }
@@ -582,7 +583,7 @@ function receiveDataInvoice(response) {
     }
     catch (e) {
         debugger;
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
 
 }
@@ -898,7 +899,7 @@ function submitOrders() {
     }
 
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/stockout/stockout-change.php";
+    let url = "/forms/stockout/stockout-change.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -927,7 +928,7 @@ function submitOrderExtraCharge() {
         };
 
         let xmlhttp = new XMLHttpRequest();
-        let url = "https://internal.ban-leng.com/forms/stockout/stockout-change-ec.php";
+        let url = "/forms/stockout/stockout-change-ec.php";
 
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
@@ -958,7 +959,7 @@ function submitInvoices() {
     }
 
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/stockout/stockout-change-invoice.php";
+    let url = "/forms/stockout/stockout-change-invoice.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -1099,7 +1100,7 @@ function createReport(company) {
         let details_SOrows = this.getAllDetailRows().filter(detail => detail.SalesOrderNo == salesOrder.InvoiceNo);
         let detailExtraCharges_allrows = this.getAllDetailExtraChargeRows();
 
-        var popup = open("https://internal.ban-leng.com/forms/stockout/report.html", "Popup", "width=794,height=1123");
+        var popup = open("/forms/stockout/report.html", "Popup", "width=794,height=1123");
 
         popup.addEventListener('DOMContentLoaded', function () {
             if (company == 'kalt') {
@@ -1273,10 +1274,10 @@ function printReceipt(company) {
         let invoice = selectedInvoice[0];
 
         let isCustomerOnly = document.querySelector('#receiptCustomerOnly').checked;
-        let url = 'https://internal.ban-leng.com/forms/stockout/receipt/receipt.html';
+        let url = '/forms/stockout/receipt/receipt.html';
         let size = 'width=794,height=1123'
         if (isCustomerOnly) {
-            url = 'https://internal.ban-leng.com/forms/stockout/receipt/receipt-customer.html';
+            url = '/forms/stockout/receipt/receipt-customer.html';
             size = 'width=794,height=562'
         }
         var popup = open(url, "Popup", size);

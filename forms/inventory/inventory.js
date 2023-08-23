@@ -109,7 +109,7 @@ function requestData() {
     
     var request_param = "&month="  + encodeURIComponent(month + 1)
                         + "&year=" + encodeURIComponent(year)
-    var url = "https://internal.ban-leng.com/forms/inventory/inventory.php";
+    var url = "/forms/inventory/inventory.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -120,7 +120,7 @@ function requestData() {
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function (e) {
         debugger;
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
     xmlhttp.send(request_param);
 }
@@ -134,7 +134,7 @@ function receiveData(response) {
     }
     catch (e) {
         debugger;
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
 
 }

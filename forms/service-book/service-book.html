@@ -7,34 +7,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-type" content="text/html;charset=utf-8">
     <!-- Include the JS for AG Grid -->
-   <script src="https://internal.ban-leng.com/scripts/ag-grid-community.min.noStyle.js"></script>
-   <!-- Include the core CSS, this is needed by the grid -->
-   <link rel="stylesheet"
-     href="https://internal.ban-leng.com/styles/ag-grid.css"/>
-   <!-- Include the theme CSS, only need to import the theme you are going to use -->
-   <link rel="stylesheet"
-     href="https://internal.ban-leng.com/styles/ag-theme-balham.css"/>
+    <script src="/scripts/ag-grid-community.min.noStyle.js"></script>
+    <!-- Include the core CSS, this is needed by the grid -->
+    <link rel="stylesheet" href="/styles/ag-grid.css" />
+    <!-- Include the theme CSS, only need to import the theme you are going to use -->
+    <link rel="stylesheet" href="/styles/ag-theme-balham.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
-    <script src="https://uicdn.toast.com/tui.dom/v3.0.0/tui-dom.js"></script>
-    <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+    <script src="/scripts/tui-code-snippet.js"></script>
+    <script src="/scripts/tui-dom.js"></script>
+    <script src="/scripts/tui-time-picker.min.js"></script>
+    <script src="/scripts/tui-date-picker.min.js"></script>
+    <script src="/scripts/tui-calendar.js"></script>
 
-    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/global.css" type="text/css" />
-    <link rel="stylesheet" href="https://internal.ban-leng.com/forms/service-book/service-book.css">
-    <link rel="stylesheet" href="https://internal.ban-leng.com/styles/tags.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
-    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
-    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
+    <link rel="stylesheet" href="/styles/global.css" type="text/css" />
+    <link rel="stylesheet" href="/forms/service-book/service-book.css">
+    <link rel="stylesheet" href="/styles/tags.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/styles/tui-calendar.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/tui-date-picker.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/tui-time-picker.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 </head>
 
 <body class="ag-theme-balham">
     <h1>Service Book</h1>
-    <a href="https://internal.ban-leng.com/">Back to home</a>
-    <div id="menu">
-        <span id="menu-navi">
+    <a href="/">Back to home</a>
+    <div id="menu" style="display: flex">
+        <span id="menu-navi" style="flex: 0 1 auto;">
             <button type="button" class="btn btn-default btn-sm move-today" onclick="calendarMoveToday()">Today</button>
             <button type="button" class="btn btn-default btn-sm move-day" onclick="calendarMovePrev()">
                 <i class="calendar-icon ic-arrow-line-left"></i>
@@ -42,218 +42,387 @@
             <button type="button" class="btn btn-default btn-sm move-day" onclick="calendarMoveNext()">
                 <i class="calendar-icon ic-arrow-line-right"></i>
             </button>
+            <span id="renderRange" class="render-range"></span>
         </span>
-        <span id="renderRange" class="render-range"></span>
-        <span style="margin-left: 100px">
+
+        <span style="flex: 1 1 auto;">&nbsp;</span>
+        <span style="flex: 0 0 100px;">
             <label>Filter by Team: </label>
             <select id="TeamFilter" name="TeamFilter" style="width: 100px" onchange="requestData()"></select>
         </span>
     </div>
+    <div id="JobSection">
+        <div class="tab">
+            <button class="tablinks" id="CalendarViewBtn" onclick="openTab(event, 'CalendarView','JobSection')">Calendar</button>
+            <button class="tablinks" id="GridViewBtn"
+                onclick="openTab(event, 'GridView','JobSection')">Grid</button>
+        </div>
+        <div id="CalendarView" class="tabcontent">
+            <div id="calendar" style="width: 100%;"></div>
+        </div>
+        <div id="GridView" class="tabcontent">
+            <div id="serviceGrid" class="ag-theme-balham" style="height: 500px; width:100%;"></div>
+            <div class="button-bar" style="width: 100%;">
+                <button style='width: 120px' onclick="newService(null,null)" id="btnSave">New</button>
+            </div>
+        </div>
+    </div>
 
-    <div id="calendar"></div>
-    <table style="width: 100%">
-        <tr>
-            <td style="width: 70%">
-                <table style="width: 100%">
-                    <tr>
-                        <td style="width: 40%">
-                            <h2>Job Search</h2>
-                            <div>
-                                <span style="width: 70%; display: inline-block;">
-                                    <input type="text" id="serviceSearchInput" placeholder="Search" />
-                                </span>
-                                <span style="width: 30%;">
-                                    <button onclick="searchService()">Search</button>
-                                </span>
-                            </div>
-                            </div>
-                            <div id="serviceSearchGrid" class="ag-theme-balham" style="height: 200px;"></div>
-                        </td>
-                        <td style="width: 60%">
-                            <table style="width: 100%">
-                                <tr>
-                                    <td colspan=2>
-                                        <span style="width: 70%; display: inline-block;">
-                                            <select id="PrintWeekdaySelection" name="PrintWeekdaySelection" onchange="onChangeWeekDaySelection()">
-                                                <option value=1>Monday</option>
-                                                <option value=2>Tuesday</option>
-                                                <option value=3>Wednesday</option>
-                                                <option value=4>Thursday</option>
-                                                <option value=5>Friday</option>
-                                                <option value=6>Saturday</option>
-                                                <option value=0>Sunday</option>
-                                            </select>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h2>Day Summary</h2>
-                                        <textarea id="PrintText" name="PrintText" style="height: 200px;"></textarea>
-                                    </td>
-                                    <td>
-                                        <h2>Daily Note</h2>
-                                        <textarea id="DayNote" name="DayNote" style="height: 200px;"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <button onclick="saveDayNote()">Save</button>
-                                    </td>
-                                </tr>
-                                
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <h2>Jobs</h2>
-                            <div id="serviceGrid" class="ag-theme-balham" style="height: 500px; width:100%;"></div>
-                        </td>
-                    </tr>
-                </table>
-                <div>
 
+    <div class="button-bar" style="width: 100%;">
+        <button style='float: left; width: 120px' onclick="openJobSearchPopup()" id="btnSave">Search</button>
+    </div>
+
+    <div id="job-search-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <span id="job-search-modal-close" class="job-search-modal">&times;</span>
+                <h2>Job Search</h2>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex">
+                    <span style="flex: 0 1 300px">
+                        <input type="text" id="serviceSearchInput" placeholder="Search" />
+                    </span>
+                    <span style="flex: 0 0 auto; margin-left: 20px">
+                        <button onclick="searchService()">Search</button>
+                    </span>
                 </div>
+            </div>
+            <div id="serviceSearchGrid" class="ag-theme-balham" style="height: 200px;"></div>
+        </div>
+    </div>
+    </div>
+    <div id="edit-day-modal" class="modal">
+        <div class="modal-content" style="max-width: 1000px;">
+            <div class="modal-header">
+                <span id="edit-day-modal-close" class="modal-close">&times;</span>
+                <h2>Edit Day</h2>
+            </div>
+            <div class="modal-body">
+                <!-- <span style="width: 70%; display: inline-block;">
+                    <select id="PrintWeekdaySelection" name="PrintWeekdaySelection"
+                        onchange="onChangeWeekDaySelection()">
+                        <option value=1>Monday</option>
+                        <option value=2>Tuesday</option>
+                        <option value=3>Wednesday</option>
+                        <option value=4>Thursday</option>
+                        <option value=5>Friday</option>
+                        <option value=6>Saturday</option>
+                        <option value=0>Sunday</option>
+                    </select>
+                </span> -->
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <h3>Daily Notes</h3>
+                        <textarea id="DayNote" name="DayNote" style="height: 200px;"></textarea>
+                        <button onclick="saveDayNote()">Save</button>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <h3>Day Summary</h3>
+                        <textarea id="PrintText" name="PrintText" style="height: 200px;"></textarea>
+                        <button onclick="copyDaySummary()">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="job-appointment-modal" class="modal">
+        <div class="modal-content" style="max-width: 1000px;">
+            <div class="modal-header">
+                <span id="job-appointment-modal-close" class="modal-close">&times;</span>
+                <div style="display: flex;">
+                    <h2 style="flex: 0 0 auto; margin-right:10px;">Job appointment</h2>
+                    <div style="flex: 0 0 auto">
+                        <button class="btn btn-default btn-sm move-day" id="btnPasteFromStockout"
+                            title="Paste From Stockout" onclick="openPasteFromStockoutPopup()">
+                            <i class="material-symbols-outlined" style="display: inline-block">
+                                content_paste
+                            </i>
+                        </button>
+                    </div>
+                    <div style="flex: 1 1 auto">
+                        <button class="btn btn-default btn-sm move-day" id="btnSelectCustomer" title="Select Customer"
+                            onclick="openCustomerPopup()">
+                            <i class="material-symbols-outlined" style="display: inline-block">
+                                person_search
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!--Paste from Stockout Popup-->
+                <div id="paste-stockout-modal" class="modal modal2">
+                    <div class="modal-content" style="max-width: 650px;">
+                        <div class="modal-header">
+                            <span id="paste-stockout-modal-close" class="modal-close">&times;</span>
+                            <h2>Paste from Stock Out</h2>
+                        </div>
+                        <div class="modal-body">
+                            <textarea style="width: 100%;" name="pasteFromStockOut" id="pasteFromStockOut"
+                                onchange="pasteFromStockOut()"
+                                placeholder="Select invoice/sales order from Stock Out Page -> Click 'Copy To Service' button -> Paste here"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- --------------------------->
 
-
-            </td>
-            <td style="width: 40%">
-                <h2>Job appointment</h2>
-                <table style="width: 100%;" class="service-book-form">
-                    <tr>
-                        <td><label>Type</label></td>
-                        <td>
-                            <select id="Type" name="Type" style="width: 100%" onChange="onTypeChange()">
+                <!--Select Customer Popup-->
+                <div id="select-customer-modal" class="modal modal2">
+                    <div class="modal-content" style="max-width: 1000px;">
+                        <div class="modal-header">
+                            <span id="select-customer-modal-close" class="modal-close">&times;</span>
+                            <h2>Customer</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div id="CustomerSection">
+                                <div class="tab">
+                                    <button class="tablinks" id="CustomerFormBtn"
+                                        onclick="openTab(event, 'CustomerForm','CustomerSection')">New
+                                        Customer</button>
+                                    <button class="tablinks" id="CustomerSearchBtn"
+                                        onclick="openTab(event, 'CustomerSearch','CustomerSection')">Search
+                                        Existing</button>
+                                </div>
+                                <div id="CustomerSearch" class="tabcontent">
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <input style="width: 100%" type="text" id="CustomerFilter"
+                                                placeholder="Filter..." oninput="onCustomerFilterTextBoxChanged()" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <div id="CustomerGrid" class="ag-theme-balham"
+                                                style="height: 300px; width:100%; padding-top: 5px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <button style='float: right;' onclick="selectExistingCustomer()">Select
+                                                Customer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="CustomerForm" class="tabcontent">
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <div class="modal-label"><label>Name</label></div>
+                                            <div><input id="NewCustomerName" type="text" name="CustomerName"></div>
+                                        </div>
+                                        <div class="modal-flex-item-right">
+                                            <div class="modal-label"><label>Email</label></div>
+                                            <div><input id="NewEmail" type="text" name="Email" /></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <div class="modal-label"><label>Phone</label></div>
+                                            <div><input id="NewPhone" type="text" name="Phone" /></div>
+                                        </div>
+                                        <div class="modal-flex-item-right">
+                                            <div class="modal-label"><label>Fax</label></div>
+                                            <div><input id="NewFax" type="text" name="Fax" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <div class="modal-label"><label>Address</label></div>
+                                            <div><textarea id="NewCustomerAddress" name="CustomerAddress"
+                                                    style="height:50px"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-flex-item-right">
+                                            <div class="modal-label"><label>Registration No</label></div>
+                                            <div><input id="NewRegNo" type="text" name="RegNo" /></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <div class="modal-label"><label>Attn Person</label></div>
+                                            <div><input id="NewAttnPerson" type="text" name="AttnPerson" /></div>
+                                        </div>
+                                        <div class="modal-flex-item-right">
+                                            <div class="modal-label"><label>Attn Phone</label></div>
+                                            <div><input id="NewAttnPhone" type="text" name="AttnPhone" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-flex-container">
+                                        <div class="modal-flex-item-left">
+                                            <span class="button-bar" style="width: 100%;">
+                                                <button style='width: 120px' onclick="selectNewCustomer()">Select
+                                                    Customer</button>
+                                                <button style='width: 120px' onclick="saveCustomer()">Save to
+                                                    System</button>
+                                            </span>
+                                        </div>
+                                        <div class="modal-flex-item-right">
+                                            <div id='NewCustomerMsg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                        </div>
+                    </div>
+                </div>
+                <!-- --------------------------->
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Type</label></div>
+                        <div>
+                            <select id="Type" name="Type" onChange="onTypeChange()">
                                 <option value="Company">Company</option>
                                 <option value="Customer">Customer</option>
+                                <option value="Project">Project</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Name </label></td>
-                        <td><input id="Name" type="text" name="Name" /></td>
-                    </tr>
-                    <tr id="PICWrapper">
-                        <td><label>Person in Charge </label></td>
-                        <td><input id="PIC" type="text" name="PIC" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Contact No. </label></td>
-                        <td><textarea id="ContactNo" name="ContactNo"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><label>Address </label></td>
-                        <td><textarea id="Address" name="Address" style="height: 80px;"></textarea></td>
-                    </tr>
-                    <tr id="DepartmentWrapper">
-                        <td><label>Department </label></td>
-                        <td><input id="Department" type="text" name="Department" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Action </label></td>
-                        <td>
+                        </div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>Name </label></div>
+                        <div><input id="Name" type="text" name="Name" /></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left" id="PICWrapper">
+                        <div class="modal-label"><label>Person in Charge </label></div>
+                        <div><input id="PIC" type="text" name="PIC" /></div>
+                    </div>
+                    <div class="modal-flex-item-right" id="DepartmentWrapper">
+                        <div class="modal-label"><label>Department/Project </label></div>
+                        <div><input id="Department" type="text" name="Department" /></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Contact No. </label></div>
+                        <div><textarea id="ContactNo" name="ContactNo"></textarea></div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>Address </label></div>
+                        <div><textarea id="Address" name="Address" style="height: 80px;"></textarea></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Action </label></div>
+                        <div>
                             <select id="ActionSelection" name="ActionSelection" style="width: 70%"></select>
                             <span class="button-bar" style="width: 30%;">
                                 <button onclick="addAction()">Add</button>
                             </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input id="Action" name="Action"></input></td>
-                    </tr>
-                    <tr>
-                        <td><label>Team </label></td>
-                        <td><select id="Team" name="Team" style="width: 100%"></select></td>
-                    </tr>
-                    <tr>
-                        <td><label>Salesperson </label></td>
-                        <td><input id="salesperson" type="text" name="salesperson" /></td>
-                    </tr>                    
-                    <tr>
-                        <td><label>Appointment Date </label></td>
-                        <td>
-                            <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                        </div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>Added Action </label></div>
+                        <div style="vertical-align: bottom;"><input id="Action" name="Action"></input></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Team </label></div>
+                        <div><select id="Team" name="Team" style="width: 100%"></select></div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>Salesperson/Employee </label></div>
+                        <div><input id="salesperson" type="text" name="salesperson" /></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Appointment Date </label></div>
+                        <div>
+                            <div class="tui-datepicker-input tui-datetime-input tui-has-focus date-picker">
                                 <input type="text" id="ApptDate" aria-label="Date-Time">
                                 <span class="tui-ico-date"></span>
                             </div>
                             <div id="ApptDateWrapper" style="margin-top: -1px;"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>From </label></td>
-                        <td>
+                        </div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>From </label></div>
+                        <div>
                             <div id="FromTime" class="timepicker"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>To </label></td>
-                        <td>
+                        </div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>To </label></div>
+                        <div>
                             <div id="ToTime" class="timepicker"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Status </label></td>
-                        <td>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Status </label></div>
+                        <div>
                             <select id="Status" name="Status" style="width: 100%">
                                 <option value="Pending">Pending</option>
+                                <option value="25%">25%</option>
+                                <option value="50%">50%</option>
+                                <option value="75%">75%</option>
                                 <option value="Completed">Completed</option>
                                 <option value="Cancelled">Cancelled</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>DO #</label></td>
-                        <td><input id="DO" name="DO" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Cash Amount</label></td>
-                        <td><input id="CashAmount" name="CashAmount" type="number" min="0.00" step="0.01" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Cash Type #</label></td>
-                        <td><input id="cashtype" name="cashtype" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Remark </label></td>
-                        <td><textarea id="Remark" name="Remark" style="height: 80px;"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Invoice #</label></td>
-                        <td><input id="invoice" name="invoice" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Invoice Amount</label></td>
-                        <td><input id="invoiceamount" name="invoiceamount" type="number" min="0.00" step="0.01" /></td>
-                    </tr>                    
-                
-                    <tr>
-                        <td></td>
-                        <td>
-                            <span class="button-bar" style="width: 100%;">
-                                <button style='float: right; width: 120px' onclick="saveService(false)">Save</button>
-                                <button style='float: right; width: 120px' onclick="saveService(true)">Save as
-                                    New</button>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h2>Paste from Stock Out</h2>
-                <textarea style="width: 100%;" name="pasteFromStockOut" id="pasteFromStockOut" onchange="pasteFromStockOut()"
-                    placeholder="Select invoice/sales order from Stock Out Page -> Click 'Copy To Service' button -> Paste here"></textarea>
-            </td>
-        </tr>
-    </table>
+                        </div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>Payment Type #</label></div>
+                        <div><input id="cashtype" name="cashtype" /></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>DO #</label></div>
+                        <div><input id="DO" name="DO" /></div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>DO Amount</label></div>
+                        <div><input id="CashAmount" name="CashAmount" type="number" min="0.00" step="1.00" /></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Invoice #</label></div>
+                        <div><input id="invoice" name="invoice" /></div>
+                    </div>
+                    <div class="modal-flex-item-right">
+                        <div class="modal-label"><label>Invoice Amount</label></div>
+                        <div><input id="invoiceamount" name="invoiceamount" type="number" min="0.00" step="1.00" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <div class="modal-label"><label>Remark</label></div>
+                        <div><textarea id="Remark" name="Remark" style="height: 80px;"></textarea></div>
+                    </div>
+                </div>
+                <div class="modal-flex-container">
+                    <div class="modal-flex-item-left">
+                        <span class="button-bar" style="width: 100%;">
+                            <button style='float: right; width: 80px' onclick="saveService(false)"
+                                id="btnSave"><b>Save</b></button>
+                            <button style='float: right; width: 100px' onclick="saveService(true)"
+                                id="btnSaveAsNew">Save as
+                                New</button>
+                            <button style='float: right; width: 80px' onclick="deleteService()"
+                                id="btnDelete">Delete</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script src="https://internal.ban-leng.com/forms/service-book/service-book.js">
+    <script src="/forms/service-book/service-book.js">
     </script>
 </body>
 

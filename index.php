@@ -19,21 +19,21 @@
     include('dbcon.php');
     
     //Check whether the session variable SESS_MEMBER_ID is present or not
-    $session_id=$_SESSION['User_ID'];
+    $session_id= isset($_SESSION['User_ID']) ? $_SESSION['User_ID'] : '';
 
     if ( isset($session_id) && trim($session_id) != '' &&  $result = mysqli_query($con, "select * from Users where User_ID=$session_id") ) {
       $row = mysqli_fetch_array($result);
       echo "<center> <h3>Welcome:" . $row['Name'] . "</h3></center>";
       echo "<div class='reminder'>";
-      echo "<p><a href='https://internal.ban-leng.com/price-inquiry'>Price Inquiry</a></p>";
-       echo "<p><a href='https://internal.ban-leng.com/price-inquiry2'>Price Inquiry(Package)</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/quotation-maint'>Quotation - Repair & Maintenance</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/quotation-aircond'>Quotation - Aircond</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/service-book'>Service Book</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/inventory'>Inventory</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/stockin'>Stock In</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/stockout'>Stock Out</a></p>";
-      echo "<p><a href='https://internal.ban-leng.com/warranty'>Warranty</a></p>";
+      echo "<p><a href='/price-inquiry'>Price Inquiry</a></p>";
+       echo "<p><a href='/price-inquiry2'>Price Inquiry(Package)</a></p>";
+      echo "<p><a href='/quotation-maint'>Quotation - Repair & Maintenance</a></p>";
+      echo "<p><a href='/quotation-aircond'>Quotation - Aircond</a></p>";
+      echo "<p><a href='/service-book'>Service Book</a></p>";
+      echo "<p><a href='/inventory'>Inventory</a></p>";
+      echo "<p><a href='/stockin'>Stock In</a></p>";
+      echo "<p><a href='/stockout'>Stock Out</a></p>";
+      echo "<p><a href='/warranty'>Warranty</a></p>";
       echo "<p><a href='logout.php'>Log out</a></p></div>";
     } else {
       echo "<form action='login.php' method='post'>";

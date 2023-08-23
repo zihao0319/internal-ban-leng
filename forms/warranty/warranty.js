@@ -92,7 +92,7 @@ function search() {
     }
     var xmlhttp = new XMLHttpRequest();
     var request_param = "&search="  + encodeURIComponent(searchValue);
-    var url = "https://internal.ban-leng.com/forms/warranty/warranty.php";
+    var url = "/forms/warranty/warranty.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -107,7 +107,7 @@ function search() {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function (e) {
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
     xmlhttp.send(request_param);
 }

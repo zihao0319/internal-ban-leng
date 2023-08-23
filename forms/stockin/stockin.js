@@ -162,7 +162,7 @@ function requestData() {
 
     var request_param = "&month=" + encodeURIComponent(month + 1)
         + "&year=" + encodeURIComponent(year)
-    var url = "https://internal.ban-leng.com/forms/stockin/stockin.php";
+    var url = "/forms/stockin/stockin.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -172,7 +172,7 @@ function requestData() {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function (e) {
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
     xmlhttp.send(request_param);
 }
@@ -188,7 +188,7 @@ function receiveData(response) {
     }
     catch (e) {
         debugger;
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
 
 }
@@ -250,7 +250,7 @@ function submit() {
     let modified_rows = this.getAllRows().filter(row => row.modified);
 
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/stockin/stockin-change.php";
+    let url = "/forms/stockin/stockin-change.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {

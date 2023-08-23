@@ -81,7 +81,7 @@ new agGrid.Grid(eGridDiv, gridOptions);
 
 function requestData() {
     var xmlhttp = new XMLHttpRequest();
-    var url = "https://internal.ban-leng.com/forms/price-inquiry/price-inquiry.php";
+    var url = "/forms/price-inquiry/price-inquiry.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -91,7 +91,7 @@ function requestData() {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function(e) {
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
     xmlhttp.send();
 }
@@ -103,7 +103,7 @@ function receiveData(response) {
         gridOptions.api.onFilterChanged();
     }
     catch (e) {
-        location.href = 'https://internal.ban-leng.com';
+        location.href = '/';
     }
 
 }

@@ -13,13 +13,13 @@ if (isset($_POST['login']))
     if ($num_row > 0 && $row['Password'] == $password) 
         {			
             $_SESSION['User_ID']=$row['User_ID'];
-            header("location: https://internal.ban-leng.com/");
+            header("location: /");
         }
     else
         {
             echo '<script language="javascript">';
             echo 'alert("Wrong username and password");';
-            echo "window.location = ('https://internal.ban-leng.com/');";
+            echo "window.location = ('/');";
             echo '</script>';
             
         }

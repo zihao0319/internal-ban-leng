@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-header("location: https://internal.ban-leng.com/");
+header("location: /");
 ?>

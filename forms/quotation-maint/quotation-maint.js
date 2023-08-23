@@ -146,7 +146,7 @@ HistoryDetailGridOptions.api.sizeColumnsToFit();
 
 function requestData(f) {
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/quotation-maint/quotation-maint.php";
+    let url = "/forms/quotation-maint/quotation-maint.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -156,7 +156,7 @@ function requestData(f) {
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onerror = function(e) {
-        location.href = 'https://internal.ban-leng.com/';
+        location.href = '/';
     }
     xmlhttp.send();
 }
@@ -168,8 +168,7 @@ function receiveData(response) {
         responseJSON = JSON.parse(response);
     }
     catch (e) {
-        location.href = '.https://internal.ban-leng.com/';
-        debugger;
+        location.href = './';
     }
     CustomerRowData = responseJSON.Customer;
     CustomerGridOptions.api.setRowData(CustomerRowData);
@@ -224,7 +223,7 @@ function setDefaultValues(globalParam) {
 
 function getHistoryItem() {
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/quotation-maint/quotation-maint-history.php";
+    let url = "/forms/quotation-maint/quotation-maint-history.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -232,7 +231,7 @@ function getHistoryItem() {
                 responseJSON = JSON.parse(this.responseText);
             }
             catch (e) {
-                location.href = 'https://internal.ban-leng.com/';
+                location.href = '/';
             }
             HistoryRowData = responseJSON.History;
             HistoryGridOptions.api.setRowData(HistoryRowData);
@@ -363,7 +362,7 @@ document.querySelector('#CustomerSearchBtn').className += " active";
 
 function saveCustomer() {
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/quotation-maint/new-customer.php";
+    let url = "/forms/quotation-maint/new-customer.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -696,7 +695,7 @@ function OverrideACInfo() {
 }
 
 function createReport(company) {
-    var popup = open("https://internal.ban-leng.com/forms/quotation-maint/report.html", "Popup", "width=794,height=1123");
+    var popup = open("/forms/quotation-maint/report.html", "Popup", "width=794,height=1123");
 
 
     popup.addEventListener('DOMContentLoaded', function () {
@@ -820,7 +819,7 @@ var successCount = 0;
 function validateSaveRecord() {
     let quotation_params = '&quotationNo=' + encodeURIComponent(document.querySelector('#QuotationID').value);
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/quotation-maint/new-quotation-validate.php";
+    let url = "/forms/quotation-maint/new-quotation-validate.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -917,7 +916,7 @@ function saveRecord() {
     }
 
     let xmlhttp = new XMLHttpRequest();
-    let url = "https://internal.ban-leng.com/forms/quotation-maint/new-quotation.php";
+    let url = "/forms/quotation-maint/new-quotation.php";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4) {

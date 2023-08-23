@@ -50,7 +50,18 @@
     }
     $actionresponse = json_encode($action,JSON_INVALID_UTF8_SUBSTITUTE);
 
+    // Customer
+    $result = mysqli_query($con, "SELECT * FROM Customer" ) or die('Request Data Error');
+    $custrows = array();
+    while($r = mysqli_fetch_assoc($result)) {
+        $custrows[] = $r;
+    }
+    $custresponse = json_encode($custrows);
 
-    $outp = '{ "Teams" : ' .$teamsresponse .', "Actions" : '.$actionresponse.', "ServiceDayNotes" : '.$serviceDayNoteresponse.', "Services" : '.$serviceresponse ."}";
+    // Login user
+    $result_loginuser = mysqli_query($con, "select * from Users where User_ID=$session_id");
+    $row_loginuser = mysqli_fetch_array($result_loginuser);
+
+    $outp = '{ "Teams" : ' .$teamsresponse .', "Actions" : '.$actionresponse.', "ServiceDayNotes" : '.$serviceDayNoteresponse.', "Services" : '.$serviceresponse.', "Customer" : '.$custresponse. ', "LoginUser" : "'.$row_loginuser['Name'].'"}';
 
     echo($outp);
