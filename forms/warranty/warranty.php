@@ -15,12 +15,23 @@
                     OR soi.ContactNo LIKE '%$search%'
                     OR soi.Address LIKE '%$search%'
                     OR soi.InvoiceNo LIKE '%$search%'
-                    OR so.SerialNo LIKE '%$search%'
+                    ORDER BY so.OrderDate, so.ID DESC";
+
+    $sql_stockout_sn = "SELECT so.*, soi.Customer, soi.ContactNo, soi.Address, soi.InvoiceDate 
+                    FROM StockOut so
+                    LEFT JOIN StockOutInvoice soi ON (
+                    soi.InvoiceNo = so.InvoiceNo  
+                    OR soi.InvoiceNo = so.SalesOrderNo)  
+                    WHERE MATCH(so.SerialNo) AGAINST('$search')
                     ORDER BY so.OrderDate, so.ID DESC";
 
     $result_stockout = mysqli_query($con, $sql_stockout ) or die('Request Data Error');
+    $result_stockout_sn = mysqli_query($con, $sql_stockout_sn ) or die('Request Data Error');
     $stockout = array();
     while($r = mysqli_fetch_assoc($result_stockout)) {
+        $stockout[] = $r;
+    }
+    while($r = mysqli_fetch_assoc($result_stockout_sn)) {
         $stockout[] = $r;
     }
     $stockoutresponse = json_encode($stockout);
