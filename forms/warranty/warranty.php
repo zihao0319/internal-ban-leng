@@ -23,6 +23,7 @@
                     soi.InvoiceNo = so.InvoiceNo  
                     OR soi.InvoiceNo = so.SalesOrderNo)  
                     WHERE MATCH(so.SerialNo) AGAINST('$search')
+					GROUP BY so.ID
                     ORDER BY so.OrderDate, so.ID DESC";
 
     $result_stockout = mysqli_query($con, $sql_stockout ) or die('Request Data Error');
