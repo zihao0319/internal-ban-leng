@@ -607,7 +607,7 @@ calendar.on('clickSchedule', function (event) {
     if (!click_schedule.isAllDay) {
         let service = services.find(s => s.ServiceID == click_scheduleid);
         editService(service);
-    } else if (click_scheduleid.startsWith("daynote_")) {
+    } else if (click_schedule.isAllDay) {
         editDayModal.style.display = 'block';
         editdaydate = new Date(click_schedule.start.toDate() - tzoffset);
         this.printAsText(editdaydate);
